@@ -1,0 +1,69 @@
+int
+float
+bool
+String
+string
+static
+flotante
+true
+false
+&&
+||
+&&&
+return
+if
+else
+while
+WHILE
+for
+break
+;
+switch
+=
+-
++
+*
+/
+==
+<
+>
+<=
+>=
+!=
+abstract
+new
+assert
+package
+this
+implements
+protected
+try
+final   
+interface
+static
+class
+finally
+super
+Object
+import java.util.*
+import java.util.*;
+import java.lang.*;
+import javax.swing.*;
+public boolean uno(){}
+protected void dos(){}
+private int (){
+metodo(){}
+public class clase{}
+//
+private class segundaClase{}
+public clase Hola{}
+public class Hello{}
+throw
+throws
+instanceof
+catch
+extends
+Object.metodo();
+metodo();
+while(uno != dos){}
+for(String s : array){}
