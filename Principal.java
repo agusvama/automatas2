@@ -19,7 +19,7 @@ public class Principal {
     */
     //lista ligada donde se almacenan las palabras
     static LinkedList<String> lista = new LinkedList<>();
-    static String rutaArchivo = "/home/maldad/Documents/tec/9no/automatas2/projects/Analizador_lexico_java/src/Analizador/javaWords.txt";
+    static String rutaArchivo = "/home/maldad/Documents/tec/9no/automatas2/projects/Analizador_lexico_java/javaWords.txt";
     static Analizador ana;
     //"/home/maldad/Docu/Analizador/src/Analizador/javaWords.txt";
     public static void archivoToLista(String rutaArchivo) throws FileNotFoundException, IOException {
