@@ -11,14 +11,17 @@ import java.util.LinkedList;
 
 public class Principal {
     //CAMBIAR ESTAS RUTAS POR DONDE ESTE SU .flex y .txt CON PALABRAS A ANALIZAR
+    /*
     static String rutaFlex = "/home/maldad/NetBeansProjects/Analizador/src/Analizador/lexer.flex";
     static String rutaArchivo = "/home/maldad/NetBeansProjects/Analizador/src/Analizador/javaWords.txt";
     //objeto para generar la clase analizadora
     static Generadora g = new Generadora();
-    static Analizador ana;
+    */
     //lista ligada donde se almacenan las palabras
     static LinkedList<String> lista = new LinkedList<>();
-    
+    static String rutaArchivo = "/home/maldad/Documents/tec/9no/automatas2/projects/Analizador_lexico_java/src/Analizador/javaWords.txt";
+    static Analizador ana;
+    //"/home/maldad/Docu/Analizador/src/Analizador/javaWords.txt";
     public static void archivoToLista(String rutaArchivo) throws FileNotFoundException, IOException {
         String cadena;
         FileReader fr = new FileReader(rutaArchivo);
@@ -50,10 +53,15 @@ public class Principal {
     }//analizarLista
     
     public static void main(String [] args) throws FileNotFoundException, IOException{
-        g.generarLexer(rutaFlex);
+        //g.generarLexer(rutaFlex);
         //vaciarArreglo();
         archivoToLista(rutaArchivo);
         analizarLista();
+        System.out.println("Hola mundo");
+        System.out.println("Hola mundo");
+        System.out.println("Hola mundo");
+        System.out.println("Hola mundo");
+        System.out.println("Hola mundo");
     }//main
     
 }//Principal
