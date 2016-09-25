@@ -67,3 +67,5 @@ Object.metodo();
 metodo();
 while(uno != dos){}
 for(String s : array){}
+foraaaa(String s : array){}
+
