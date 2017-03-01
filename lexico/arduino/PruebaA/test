@@ -1,0 +1,13 @@
+void setup(){
+pinMode(13, OUTPUT);
+}
+ 
+void loop(){
+digitalWrite(13,HIGH);
+}
+
+pinMode(a, OUTPUT)
+digitalWrite(b, INPUT)
+digitalread(c)
+analogRead(d)
+analogWrite(e, LOW)

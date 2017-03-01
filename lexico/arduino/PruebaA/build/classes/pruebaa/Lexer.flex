@@ -34,12 +34,15 @@ public int x;
 ":"|";"|"."|"," { return DELIMITADOR;}
 "{" { return PRINCIPIO_FUNCION;}
 "}" { return FINAL_FUNCION;}
-"unsigned long millis()"|"unsigned long micros()"|"delay"\({D}+\)|"delayMicroseconds\({D}+\)" { return FUNCION_TIEMPO;}
+"unsigned long millis()"|"unsigned long micros()"|"delay"\({D}+\) { return FUNCION_TIEMPO;}
+"delayMicroseconds"\({D}+\) {return FUNCION_TIEMPO;}
 {L}+({X}|{L})*\(\)  {lexeme=yytext();return METODO;}
 {L}*|{L}+{X}({L}|{D})* {lexeme=yytext(); return IDENTIFICADOR;}
 {D}+ {lexeme=yytext();return INT;}
 "pinMode("+{L}+({X}|{L}|{D})*+","{es}*{e}+")" { return FUNCION_ES_DIGITAL;}
+"pinMode("+{D}+({X}|{L}|{D})*+","{es}*{e}+")" {return FUNCION_ES_DIGITAL;}
 "digitalWrite("+{L}+({X}|{L}|{D})*+","{es}*{e}+")" { return FUNCION_ES_DIGITAL;}
+"digitalWrite("+{D}+({X}|{L}|{D})*+","{es}*{e}+")" { return FUNCION_ES_DIGITAL;}
 "digitalread("+{L}+({X}|{L}|{D})*+")" { return FUNCION_ES_DIGITAL;}
 "analogRead("+{L}+({X}|{L}|{D})*+")" { return FUNCION_ES_ANALOGICA;}
 "analogWrite("+{L}+({X}|{L}|{D})*","{es}*{e}+")" { return FUNCION_ES_ANALOGICA;}

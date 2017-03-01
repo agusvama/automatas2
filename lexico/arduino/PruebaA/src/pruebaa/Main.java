@@ -16,7 +16,8 @@ public class Main {
 
     public static void main(String[] args) {
         // TODO code application logic here
-       String path="C:/Users/Mendoza/Documents/NetBeansProjects/PruebaA/src/pruebaa/Lexer.flex";
+       //String path="C:/Users/Mendoza/Documents/NetBeansProjects/PruebaA/src/pruebaa/Lexer.flex";
+       String path="/home/maldad/repos/automatas/lexico/arduino/PruebaA/src/pruebaa/Lexer.flex";
        generarLexer(path);
         
     }
