@@ -1,0 +1,122 @@
+/* Import the class java_cup.runtime.*  */
+import java_cup.runtime.*;
+
+/* Código para reportar errores, incluye linea y columna */
+parser code {:
+    public void report_error(String message, Object info) { 
+    /* creo que report_error() viene de java_cup.runtime */
+   
+        /* Create a StringBuilder called 'm' with the string 'Error' in it. */
+        StringBuilder m = new StringBuilder("Error");
+   
+        /* Check if the information passed to the method is the same
+           type as the type java_cup.runtime.Symbol. */
+        if (info instanceof java_cup.runtime.Symbol) {
+            /* Declare a java_cup.runtime.Symbol object 's' with the
+               information in the object info that is being typecasted
+               as a java_cup.runtime.Symbol object. */
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            /* Check if the line number in the input is greater or
+               equal to zero. */
+            if (s.left >= 0) {                
+                /* Add to the end of the StringBuilder error message
+                   the line number of the error in the input. */
+                m.append(" in line "+(s.left+1));   
+                /* Check if the column number in the input is greater
+                   or equal to zero. */
+                if (s.right >= 0)                    
+                    /* Add to the end of the StringBuilder error message
+                       the column number of the error in the input. */
+                    m.append(", column "+(s.right+1));
+            }
+        }
+   
+        /* Add to the end of the StringBuilder error message created in
+           this method the message that was passed into this method. */
+        m.append(" : "+message);
+   
+        /* Print the contents of the StringBuilder 'm', which contains
+           an error message, out on a line. */
+        System.err.println(m);
+    }
+   
+    /* Change the method report_fatal_error so when it reports a fatal
+       error it will display the line and column number of where the
+       fatal error occurred in the input as well as the reason for the
+       fatal error which is passed into the method in the object
+       'message' and then exit.*/
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
+   
+
+/* esta es la parte interesante, donde se declara la gramática */   
+/* ------------Declaration of Terminals and Non Terminals Section----------- */
+   
+/* Terminals (tokens returned by the scanner).   */
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN;
+terminal Integer   NUMBER, ID;
+   
+/* Non terminals used in the grammar section. */
+non terminal Object     expr_list, expr_part;
+non terminal Integer    expr, factor, term;
+
+/* ----------------------------Grammar Section-------------------- */
+   
+/* The grammar for our parser.
+   
+   expr_list ::=   expr_list expr_part
+                 | expr_part
+   expr_part ::=   expr SEMI
+   expr      ::=   expr PLUS factor
+                 | expr MINUS factor
+                 | factor
+   factor    ::=   factor TIMES term
+                 | factor DIVIDE term
+                 | term
+   term     ::=    LPAREN expr RPAREN
+                 | NUMBER
+                 | ID     
+*/
+   
+   expr_list ::= expr_list expr_part
+                 |
+                 expr_part;
+    
+   expr_part ::= expr:e /* etiquetado de expr para mas fácil acceso posterior */
+                 {: System.out.println(" = " + e); :} /* ya no se pone expr, sino solamente "e" */
+                 SEMI
+                 ;
+   
+   expr      ::= expr:e PLUS factor:f
+                 {: RESULT = new Integer(e.intValue() + f.intValue()); :}
+                 |
+                 expr:e MINUS factor:f
+                 {: RESULT = new Integer(e.intValue() - f.intValue()); :}
+                 |
+                 factor:f
+                 {: RESULT = new Integer(f.intValue()); :}
+                 ;
+   
+   factor    ::= factor:f TIMES term:t
+                 {: RESULT = new Integer(f.intValue() * t.intValue()); :}
+                 |
+                 factor:f DIVIDE term:t
+                 {: RESULT = new Integer(f.intValue() / t.intValue()); :}
+                 |
+                 term:t
+                 {: RESULT = new Integer(t.intValue()); :}
+                 ;
+   
+   term      ::= LPAREN expr:e RPAREN
+                 {: RESULT = e; :}
+                 |
+                 NUMBER:n
+                 {: RESULT = n; :}
+                 |
+                 ID:i
+                 {: RESULT = i; :}
+                 ;
