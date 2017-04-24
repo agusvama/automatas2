@@ -1,0 +1,3 @@
+#!/bin/bash
+java -jar ../../../jflex-1.6.1/lib/jflex-1.6.1.jar lexer.flex
+java -jar ../../../jflex-1.6.1/lib/java-cup-11a.jar parser.cup
