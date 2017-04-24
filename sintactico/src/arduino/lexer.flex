@@ -21,28 +21,20 @@ import java_cup.runtime.*;
     }
 %}
 
-L=[a-z]
 D=[0-9]
-X=[A-Z_]
-e=[HIGH, LOW, INPUT, OUTPUT]
-es=[ ]
-WHITE=[ \t\r\n]
+WHITE=[\t\r\n]
 
 %%
 /* ------------------------Lexical Rules Section---------------------- */
 
-/* {WHITE} {/* ignore */} */
-/* "//".* {/* ignore */} */
-/* "void setup()"|"void loop()" { return ESTRUCTURA_INICIO_EJECUCION;} */
-
-<YYINITIAL> {
-    /* "+"                { System.out.print(yytext()); return symbol(sym.PLUS); } */
-    {WHITE}       { /* ignore */ }   
-    "//".* {/* ignore */}
-    "+"|"-"|"*"|"/"|"%" {System.out.print(yytext()); return symbol(sym.OPERADOR_ARITMETICO);}
+{WHITE}       { /* ignore */ }   
+"//".* {/* ignore */}
     
-    {D}      { System.out.print(yytext());
-                         return symbol(sym.NUMBER, new Integer(yytext())); }
-}
+"+"|"-"|"*"|"/"|"%" {System.out.print(yytext()); return symbol(sym.OPERADOR_ARITMETICO);}
+    
+{D}      { System.out.print(yytext());
+    return symbol(sym.NUMBER, new Integer(yytext())); }   
+
+";" {System.out.println(yytext()); return symbol(sym.PCOMA);}                      
 
 [^]                    { throw new Error("Illegal character <"+yytext()+">"); }

@@ -35,10 +35,9 @@ class Lexer implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\2\1\4\1\5\1\5\1\4\22\0\1\2\4\0\1\6"+
-    "\4\0\1\6\1\6\1\0\1\6\1\0\1\3\12\1\7\0\6\0"+
-    "\3\0\2\0\1\0\1\0\3\0\3\0\2\0\1\0\1\0\3\0"+
-    "\4\0\1\0\1\0\32\0\12\0\1\5\u1fa2\0\1\5\1\5\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\2\1\4\1\5\1\5\1\4\27\0\1\6\4\0\1\6"+
+    "\1\6\1\0\1\6\1\0\1\3\12\1\1\0\1\7\111\0\1\5"+
+    "\u1fa2\0\1\5\1\5\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -51,10 +50,10 @@ class Lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\2\4\1\3";
+    "\1\0\1\1\1\2\1\3\2\4\1\5\1\3";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[7];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -79,10 +78,10 @@ class Lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\7\0\7\0\7\0\16\0\7\0\25";
+    "\0\0\0\10\0\10\0\10\0\20\0\10\0\10\0\30";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[7];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -105,11 +104,11 @@ class Lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\1\4\1\2\1\6\12\0"+
-    "\1\7\3\0\4\7\2\0\1\7";
+    "\1\2\1\3\1\4\1\5\1\4\1\2\1\6\1\7"+
+    "\13\0\1\10\4\0\4\10\2\0\2\10";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[28];
+    int [] result = new int[32];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -147,10 +146,10 @@ class Lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\3\11\1\1\1\11\1\1";
+    "\1\0\3\11\1\1\2\11\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[7];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -255,7 +254,7 @@ class Lexer implements java_cup.runtime.Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 112) {
+    while (i < 80) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -621,20 +620,24 @@ class Lexer implements java_cup.runtime.Scanner {
           case 1: 
             { throw new Error("Illegal character <"+yytext()+">");
             }
-          case 5: break;
+          case 6: break;
           case 2: 
             { System.out.print(yytext());
-                         return symbol(sym.NUMBER, new Integer(yytext()));
+    return symbol(sym.NUMBER, new Integer(yytext()));
             }
-          case 6: break;
+          case 7: break;
           case 3: 
             { /* ignore */
             }
-          case 7: break;
+          case 8: break;
           case 4: 
             { System.out.print(yytext()); return symbol(sym.OPERADOR_ARITMETICO);
             }
-          case 8: break;
+          case 9: break;
+          case 5: 
+            { System.out.println(yytext()); return symbol(sym.PCOMA);
+            }
+          case 10: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

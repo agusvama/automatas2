@@ -54,9 +54,9 @@ parser code {:
 
 
 /* ------------Declaration of Terminals and Non Terminals Section----------- */
-terminal OPERADOR_ARITMETICO, NUMBER;
+terminal OPERADOR_ARITMETICO, NUMBER, PCOMA;
 non terminal Object     expr, n1, n2;
 
-expr ::= n1 OPERADOR_ARITMETICO n2;
+expr ::= n1 OPERADOR_ARITMETICO n2 PCOMA;
 n1 ::= NUMBER;
 n2 ::= NUMBER;
