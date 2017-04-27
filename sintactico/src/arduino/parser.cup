@@ -1,3 +1,4 @@
+/* Import the class java_cup.runtime.*  */
 package arduino;
 import java_cup.runtime.*;
 
@@ -51,12 +52,63 @@ parser code {:
         System.exit(1);
     }
 :};
+   
 
-
+/* esta es la parte interesante, donde se declara la gramática */   
 /* ------------Declaration of Terminals and Non Terminals Section----------- */
-terminal OPERADOR_ARITMETICO, NUMBER, PCOMA;
-non terminal Object     expr, n1, n2;
+   
+/* Terminals (tokens returned by the scanner).   */
+terminal           PCOMA, MAS, MENOS, POR, ENTRE, PARENI, PAREND;
+terminal Integer   NUMBER, ID;
+   
+/* Non terminals used in the grammar section. */
+non terminal Object     expr_list, expr_part;
+non terminal Integer    expr, factor, term;
 
-expr ::= n1 OPERADOR_ARITMETICO n2 PCOMA;
-n1 ::= NUMBER;
-n2 ::= NUMBER;
+/* ----------------------------Grammar Section-------------------- */
+   
+/* The grammar for our parser.
+   
+   expr_list ::=   expr_list expr_part
+                 | expr_part
+   expr_part ::=   expr PCOMA
+   expr      ::=   expr MAS factor
+                 | expr MENOS factor
+                 | factor
+   factor    ::=   factor POR term
+                 | factor ENTRE term
+                 | term
+   term     ::=    PARENI expr PAREND
+                 | NUMBER
+                 | ID     
+*/
+   
+   expr_list ::= expr_list expr_part
+                 |
+                 expr_part;
+    
+   expr_part ::= expr:e /* etiquetado de expr para mas fácil acceso posterior */
+                 {: System.out.println(); :}
+                 PCOMA
+                 ;
+   
+   expr      ::= expr MAS factor
+                 |
+                 expr:e MENOS factor:f
+                 |
+                 factor:f
+                 ;
+   
+   factor    ::= factor:f POR term:t
+                 |
+                 factor:f ENTRE term:t
+                 |
+                 term:t
+                 ;
+   
+   term      ::= PARENI expr:e PAREND
+                 |
+                 NUMBER:n
+                 |
+                 ID:i
+                 ;

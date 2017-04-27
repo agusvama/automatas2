@@ -21,20 +21,31 @@ import java_cup.runtime.*;
     }
 %}
 
-D=[0-9]
-WHITE=[\t\r\n]
+num = 0 | [1-9][0-9]*
+LineTerminator = \r|\n|\r\n
+   
+/* White space is a line terminator, space, tab, or line feed. */
+WhiteSpace     = {LineTerminator} | [ \t\f]
+ids = [A-Za-z_][A-Za-z_0-9]*
 
 %%
 /* ------------------------Lexical Rules Section---------------------- */
 
-{WHITE}       { /* ignore */ }   
+<YYINITIAL> {
+
+{WhiteSpace}       { /* ignore */ }   
 "//".* {/* ignore */}
     
-"+"|"-"|"*"|"/"|"%" {System.out.print(yytext()); return symbol(sym.OPERADOR_ARITMETICO);}
+/* "+"|"-"|"*"|"/"|"%" {System.out.print(yytext()); return symbol(sym.OPERADOR_ARITMETICO);} */
+    "+"                { System.out.print(" + "); return symbol(sym.MAS); }
+    "-"                { System.out.print(" - "); return symbol(sym.MENOS); }
+    "*"                { System.out.print(" * "); return symbol(sym.POR); }
+    "/"                { System.out.print(" / "); return symbol(sym.ENTRE); }
+    "("                { System.out.print(" ( "); return symbol(sym.PARENI); }
+    ")"                { System.out.print(" ) "); return symbol(sym.PAREND); }
     
-{D}      { System.out.print(yytext());
-    return symbol(sym.NUMBER, new Integer(yytext())); }   
+{num}      { System.out.print(yytext()); return symbol(sym.NUMBER); }   
 
-";" {System.out.println(yytext()); return symbol(sym.PCOMA);}                      
-
+";" {System.out.print(yytext()); return symbol(sym.PCOMA);}                      
+}
 [^]                    { throw new Error("Illegal character <"+yytext()+">"); }
