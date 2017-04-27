@@ -43,8 +43,17 @@ ids = [A-Za-z_][A-Za-z_0-9]*
     "/"                { System.out.print(" / "); return symbol(sym.ENTRE); }
     "("                { System.out.print(" ( "); return symbol(sym.PARENI); }
     ")"                { System.out.print(" ) "); return symbol(sym.PAREND); }
+    "{"                { System.out.print(" { "); return symbol(sym.LLAVEI); }
+    "}"                { System.out.print(" } "); return symbol(sym.LLAVED); }
+    /*  condicion  */
+    "if" {System.out.print(yytext()); return symbol(sym.IF);}
+    /*  ciclos */
+    "while" {System.out.print(yytext()); return symbol(sym.WHILE);}
+    "do"    {System.out.print(yytext()); return symbol(sym.DO);}
+    "for"   {System.out.print(yytext()); return symbol(sym.FOR);}
     
-{num}      { System.out.print(yytext()); return symbol(sym.NUMBER); }   
+{num}      { System.out.print(yytext()); return symbol(sym.NUMBER); }
+{ids}       { System.out.print(yytext()); return symbol(sym.ID);}   
 
 ";" {System.out.print(yytext()); return symbol(sym.PCOMA);}                      
 }

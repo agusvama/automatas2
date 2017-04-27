@@ -58,11 +58,13 @@ parser code {:
 /* ------------Declaration of Terminals and Non Terminals Section----------- */
    
 /* Terminals (tokens returned by the scanner).   */
-terminal           PCOMA, MAS, MENOS, POR, ENTRE, PARENI, PAREND;
+terminal           PCOMA, MAS, MENOS, POR, ENTRE, PARENI, PAREND, LLAVEI, LLAVED;
+terminal           IF, WHILE, DO, FOR;
 terminal Integer   NUMBER, ID;
    
 /* Non terminals used in the grammar section. */
 non terminal Object     expr_list, expr_part;
+non terminal            condicion, ciclo_while, ciclo_for;
 non terminal Integer    expr, factor, term;
 
 /* ----------------------------Grammar Section-------------------- */
@@ -75,40 +77,59 @@ non terminal Integer    expr, factor, term;
    expr      ::=   expr MAS factor
                  | expr MENOS factor
                  | factor
+                 | condicion
+                 | ciclo_while
+                 | ciclo_for
    factor    ::=   factor POR term
                  | factor ENTRE term
                  | term
    term     ::=    PARENI expr PAREND
                  | NUMBER
-                 | ID     
+                 | ID  
 */
    
    expr_list ::= expr_list expr_part
                  |
                  expr_part;
     
-   expr_part ::= expr:e /* etiquetado de expr para mas fácil acceso posterior */
+   expr_part ::= expr /* etiquetado de expr para mas fácil acceso posterior */
                  {: System.out.println(); :}
                  PCOMA
                  ;
    
    expr      ::= expr MAS factor
                  |
-                 expr:e MENOS factor:f
+                 expr MENOS factor
                  |
-                 factor:f
+                 factor
+                 |
+                 condicion
+                 |
+                 ciclo_while
+                 |
+                 ciclo_for
                  ;
    
-   factor    ::= factor:f POR term:t
+   factor    ::= factor POR term
                  |
-                 factor:f ENTRE term:t
+                 factor ENTRE term
                  |
-                 term:t
+                 term
                  ;
+    
+   condicion ::= IF term
+                 ;
+                 
+   ciclo_while ::= WHILE term
+                |
+                   DO LLAVEI ID LLAVED WHILE term
+                ;
+   ciclo_for ::= FOR term LLAVEI LLAVED
+                ;
    
-   term      ::= PARENI expr:e PAREND
+   term      ::= PARENI expr PAREND
                  |
-                 NUMBER:n
+                 NUMBER
                  |
-                 ID:i
+                 ID
                  ;
