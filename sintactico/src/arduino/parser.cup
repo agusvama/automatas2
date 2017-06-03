@@ -118,6 +118,8 @@ non terminal Integer    expr, factor, term;
                  ;
     
    condicion ::= IF term
+                | IF term LLAVEI LLAVED
+                | IF term LLAVEI condicion LLAVED 
                  ;
                  
    ciclo_while ::= WHILE term
